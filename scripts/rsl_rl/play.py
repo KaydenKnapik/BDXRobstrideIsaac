@@ -140,14 +140,27 @@ def main():
     obs, _ = env.get_observations()
     timestep = 0
     # simulate environment
+# simulate environment
     while simulation_app.is_running():
         start_time = time.time()
-        # run everything in inference mode
         with torch.inference_mode():
-            # agent stepping
             actions = policy(obs)
-            # env stepping
+    
+            # ✅ Add this block below
+            joint_names = [
+                "Left_Hip_Yaw", "Left_Hip_Roll", "Left_Hip_Pitch", "Left_Knee", "Left_Ankle",
+                "Right_Hip_Yaw", "Right_Hip_Roll", "Right_Hip_Pitch", "Right_Knee", "Right_Ankle"
+            ]
+            if isinstance(actions, torch.Tensor):
+                actions_np = actions.cpu().numpy()
+            else:
+                actions_np = actions
+            print("Joint Commands for Env 0:")
+            for name, val in zip(joint_names, actions_np[0]):
+                print(f"  {name}: {val:.3f}")
+    
             obs, _, _, _ = env.step(actions)
+
         if args_cli.video:
             timestep += 1
             # Exit the play loop after recording one video

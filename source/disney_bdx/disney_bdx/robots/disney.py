@@ -29,7 +29,7 @@ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 
 BDX_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{TEMPLATE_ASSETS_DATA_DIR}/Robots/Disney/BDX/BDX.usd",
+        usd_path=f"{TEMPLATE_ASSETS_DATA_DIR}/Robots/Disney/BDX/BDXR_Test.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
@@ -45,33 +45,24 @@ BDX_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.0),
+        pos=(0.0, 0.0, 0.30846),
     ),
     actuators={
         "legs": ImplicitActuatorCfg(
-            joint_names_expr=[".*_hip_yaw", ".*_hip_roll", ".*_hip_pitch", ".*_knee", ".*_ankle"],
+            joint_names_expr=[".*_Hip_Yaw", ".*_Hip_Roll", ".*_Hip_Pitch", ".*_Knee", ".*_Ankle"],
             stiffness={
-                ".*_hip_yaw": 100.0,
-                ".*_hip_roll": 80.0,
-                ".*_hip_pitch": 120.0,
-                ".*_knee": 200.0,
-                ".*_ankle": 200.0,
+                ".*_Hip_Yaw": 100.0,
+                ".*_Hip_Roll": 80.0,
+                ".*_Hip_Pitch": 120.0,
+                ".*_Knee": 200.0,
+                ".*_Ankle": 200.0,
             },
             damping={
-                ".*_hip_yaw": 3.0,
-                ".*_hip_roll": 3.0,
-                ".*_hip_pitch": 6.0,
-                ".*_knee": 6.0,
-                ".*_ankle": 6.0,
-            },
-        ),
-        "head": ImplicitActuatorCfg(
-            joint_names_expr=["neck_pitch", "head_pitch", "head_yaw", "head_roll", ".*_antenna"],
-            stiffness={
-                ".*": 20.0,
-            },
-            damping={
-                ".*": 1.0,
+                ".*_Hip_Yaw": 3.0,
+                ".*_Hip_Roll": 3.0,
+                ".*_Hip_Pitch": 6.0,
+                ".*_Knee": 6.0,
+                ".*_Ankle": 6.0,
             },
         ),
     },
